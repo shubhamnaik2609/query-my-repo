@@ -5,7 +5,7 @@ import React from 'react'
 const DashboardPage = () => {
   const { user } = useUser();
   return (
-    <div>Hi, {user?.firstName}</div>
+    <div>Dashboard Page</div>
   )
 }
 
