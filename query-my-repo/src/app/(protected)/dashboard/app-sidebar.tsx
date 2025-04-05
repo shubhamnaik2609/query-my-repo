@@ -10,6 +10,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
   } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
 import { Bot, CreditCard, LayoutDashboard, Plus, Presentation } from "lucide-react"
@@ -53,10 +54,14 @@ const projects = [
 
 export function AppSidebar() {
     const pathname = usePathname();
+    const {open} = useSidebar();
     return (
       <Sidebar collapsible="icon" variant="floating">
-        <SidebarHeader className=" font-mono text-xl">
-            Query My Repo
+        <SidebarHeader>
+            <div className="flex items-center gap-2">
+                <img src="./undraw_file-search.svg" width={40} height={40}></img>
+                {open && (<h1 className='text-xl font-bold text-primary/80'>Query My Repo</h1>)}
+            </div>
         </SidebarHeader>
         <SidebarContent>
             <SidebarGroup>
@@ -107,14 +112,14 @@ export function AppSidebar() {
                                 </SidebarMenuItem>)
                         })}
                         <div className="h-2"></div>
-                        <SidebarMenuItem>
+                        {open && (<SidebarMenuItem>
                             <Link href='/create'>
                                 <Button size='sm' variant={'outline'} className="w-fit"> 
                                     <Plus />
                                     Create Project                                  
                                 </Button>
                             </Link>
-                        </SidebarMenuItem>
+                        </SidebarMenuItem>)}
                     </SidebarMenu>
                 </SidebarGroupContent>
             </SidebarGroup>
