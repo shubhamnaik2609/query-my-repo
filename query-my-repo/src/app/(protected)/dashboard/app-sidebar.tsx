@@ -12,6 +12,7 @@ import {
     SidebarMenuItem,
     useSidebar,
   } from "@/components/ui/sidebar"
+import useProject from "@/hooks/use-project"
 import { cn } from "@/lib/utils"
 import { Bot, CreditCard, LayoutDashboard, Plus, Presentation } from "lucide-react"
 import Link from "next/link"
@@ -40,21 +41,11 @@ const items = [
     }
 ]
 
-const projects = [
-    {
-        name: 'ML',
-    },
-    {
-        name: 'AI',
-    },
-    {
-        name: 'Embedded',
-    },
-]
 
 export function AppSidebar() {
     const pathname = usePathname();
     const {open} = useSidebar();
+    const {projects, selectedProjectId, setSelectedProjectId} = useProject();
     return (
       <Sidebar collapsible="icon" variant="floating">
         <SidebarHeader>
@@ -93,15 +84,17 @@ export function AppSidebar() {
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                     <SidebarMenu>
-                        {projects.map((project) => {
+                        {projects?.map((project) => {
                             return (
                                 <SidebarMenuItem key={project.name}>
                                     <SidebarMenuButton asChild>
-                                        <div>
+                                        <div onClick =  {() => {
+                                            setSelectedProjectId(project.id)
+                                        }}>
                                             <div className = {cn(
                                                 'rounded-sm border size-6 flex items-center justify-center text-sm bg-white text-primary',
                                                 {
-                                                    'bg-primary text-white' : true
+                                                    'bg-primary text-white' : project.id === selectedProjectId
                                                 }
                                             )}>
                                                 {project.name[0]}
